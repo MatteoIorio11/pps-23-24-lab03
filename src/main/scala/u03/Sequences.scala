@@ -65,10 +65,7 @@ object Sequences: // Essentially, generic linkedlists
 
     def filterFlat[A](l: Sequence[A])(pred: A => Boolean): Sequence[A] = l match
         case Nil() => Nil()
-        case Cons(h, t) => {
-          import com.sun.org.apache.xpath.internal.operations.Bool.*
-          flatMap(l)(x => Cons(pred(x) ? x | Nil(), Nil()))
-        };
+        case Cons(h, t) => flatMap(l)(x => if (pred(x)) Cons(x, Nil()) else  Nil())
 
 
 
