@@ -6,6 +6,7 @@ import u02.Modules.Person.getCourse
 import u03.Optionals.Optional
 
 import scala.annotation.tailrec
+import scala.jdk.Accumulator
 import scala.language.postfixOps
 
 object Sequences: // Essentially, generic linkedlists
@@ -75,6 +76,13 @@ object Sequences: // Essentially, generic linkedlists
     def getCourses(s: Sequence[Person]): Sequence[String] =
       val teachers = filter(s)(x => !isStudent(x))
       map(teachers)(x => getCourse(x))
+
+    def foldLeft(s: Sequence[Int])(defaultValue: Int)(accumulator: (Int, Int) => Int): Int = _calcValue(s, defaultValue)(accumulator)
+    def _calcValue(s: Sequence[Int], result: Int)(accumulator: (Int, Int) => Int): Int = s match
+      case Nil() => result
+      case Cons(h, t) => _calcValue(t, accumulator(result, h))(accumulator)
+
+
 
 @main def trySequences =
   import Sequences.* 

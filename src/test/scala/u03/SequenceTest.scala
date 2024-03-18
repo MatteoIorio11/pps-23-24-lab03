@@ -53,13 +53,16 @@ class SequenceTest:
     assertEquals(Empty(), min(Nil()))
 
   @Test def testCourses() =
-    val l = Cons(Student("mario", 2001),
-      Cons(Teacher("mario prof", "pps"),
-        Cons(Teacher("stefano prof", "pcd"),
+    val l = Cons(Student("stud1", 2001),
+      Cons(Teacher("prof1", "pps"),
+        Cons(Teacher("prof2", "pcd"),
           Nil())))
     val result = Cons("pps", Cons("pcd", Nil()))
     assertEquals(result, getCourses(l))
 
+  @Test def testFoldLeft() =
+    val lst = Cons(3,Cons(7,Cons(1,Cons(5, Nil()))))
+    assertEquals(-16, foldLeft(lst)(0)(_ - _))
 
 
 
