@@ -70,4 +70,3 @@ class SequenceTest:
     assertEquals(-16, foldLeft(lst)(0)(_ - _))
 
 
-
