@@ -2,6 +2,8 @@ package u03.extensionmethods
 
 import u03.Optionals.Optional
 
+import scala.annotation.tailrec
+
 object Sequences:
   
   enum Sequence[E]:
@@ -53,7 +55,8 @@ object Sequences:
 
     extension (s: Sequence[Int])
       def min(): Optional[Int] = _minTail(s, Int.MaxValue, Optional.Empty())
-        def _minTail[A](l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
+        @tailrec
+        private def _minTail[A](l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
           case Nil() => result
           case Cons(h, tail) =>
             if (h < minVal){
@@ -61,6 +64,11 @@ object Sequences:
             }else{
               _minTail(tail, minVal, Optional.Just(minVal))
             };
+
+      def foldLeft(defaultVal: Int)(accumlator: (Int, Int) => Int): Int = s match
+        case Nil() => defaultVal
+        case Cons(h, t) => t.foldLeft(h + defaultVal)(accumlator)
+
 
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
