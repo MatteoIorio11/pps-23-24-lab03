@@ -43,6 +43,8 @@ object Streams extends App :
       case Cons(head, tail) if pred(head()) => cons(head(), takeWhile(tail())(pred))
       case _ => Empty()
 
+    def fill[A](n: =>  Int)(k: => A): Stream[A] = ???
+
   end Stream
 
 @main def tryStreams =
