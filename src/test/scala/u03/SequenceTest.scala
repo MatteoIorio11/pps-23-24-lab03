@@ -45,6 +45,11 @@ class SequenceTest:
     assertEquals(Cons(11, Cons(21, Cons(31, Nil()))), flatMap(l)(v => Cons(v + 1, Nil())))
     assertEquals(Nil(), flatMap(Nil())(v => Cons(v, Nil())))
 
+
+  @Test def testMapFlat() =
+    val l1 = Cons(10, Cons(20, Nil()))
+    assertEquals(Cons(11, Cons(21, Nil())), mapFlat(l1)(x => x + 1))
+
   @Test def testMin() =
     val l1: Sequence[Int] = Cons(20, Cons(10, Cons(30, Nil())))
     assertEquals(Just(10), min(l))
