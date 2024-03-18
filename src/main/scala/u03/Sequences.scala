@@ -1,9 +1,12 @@
 package u03
 
 import u02.AnonymousFunctions.l
+import u02.Modules.*
+import u02.Modules.Person.printCourse
 import u03.Optionals.Optional
 
 import scala.annotation.tailrec
+import scala.language.postfixOps
 
 object Sequences: // Essentially, generic linkedlists
   
@@ -68,6 +71,10 @@ object Sequences: // Essentially, generic linkedlists
             _minTail(tail, minVal, Optional.Just(minVal))
           }
         };
+
+    def getCourses(s: Sequence[Person]): Sequence[String] =
+      val teachers = filter(s)(x => !isStudent(x))
+      map(teachers)(x => printCourse(x))
 
 @main def trySequences =
   import Sequences.* 
