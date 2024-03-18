@@ -24,6 +24,19 @@ object Sequences:
         case Cons(_, t)            => t.filter(pred)
         case Nil()                 => Nil()
 
+      def zip[B](second:  Sequence[B]): Sequence[(A, B)] = (l, second) match
+        case (Nil(), Nil()) => Nil()
+        case (Cons(h1, t1), Cons(h2, t2)) => Cons((h1, h2), t1.zip(t2))
+        case (Cons(h1, t1), Nil()) => Nil()
+        case (Nil(), Cons(h2, t2)) => Nil()
+
+      def take(n: Int): Sequence[A] = l match
+        case Nil() => Nil()
+        case Cons(h, t) if (n > 0) => Cons(h, t.take(n-1))
+        case Cons(h, t) => Nil()
+
+
+
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
 
