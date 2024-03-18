@@ -12,7 +12,7 @@ object Modules extends App :
       case Student(n, _) => n
       case Teacher(n, _) => n
 
-    def printCourse(p: Person) = p match
+    def getCourse(p: Person): String = p match
       case Teacher(_, c) => c
 
   println(Person.name(Person.Student("mario", 2015)))

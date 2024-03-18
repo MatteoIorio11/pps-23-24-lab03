@@ -4,7 +4,7 @@ import Optionals.Optional.*
 import org.junit.*
 import org.junit.Assert.*
 import u03.Optionals.Optional
-
+import u02.Modules.Person.*
 
 class SequenceTest:
   import u03.Sequences.*
@@ -52,7 +52,13 @@ class SequenceTest:
     assertEquals(Just(1), min(Cons(1, Nil())))
     assertEquals(Empty(), min(Nil()))
 
-
+  @Test def testCourses() =
+    val l = Cons(Student("mario", 2001),
+      Cons(Teacher("mario prof", "pps"),
+        Cons(Teacher("stefano prof", "pcd"),
+          Nil())))
+    val result = Cons("pps", Cons("pcd", Nil()))
+    assertEquals(result, getCourses(l))
 
 
 
