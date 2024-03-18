@@ -49,7 +49,6 @@ object Sequences: // Essentially, generic linkedlists
         }
       };
 
-    
     def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = (l1, l2) match
       case (Nil(), Nil()) => Nil()
       case (Nil(), Cons(h2, t2)) => Cons(h2, concat(Nil(), t2))

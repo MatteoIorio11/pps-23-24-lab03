@@ -35,6 +35,11 @@ object Sequences:
         case Cons(h, t) if (n > 0) => Cons(h, t.take(n-1))
         case Cons(h, t) => Nil()
 
+      def concat(l2: Sequence[A]): Sequence[A] = (l, l2) match
+        case (Nil(), Nil()) => Nil()
+        case (Nil(), Cons(h2, t2)) => Cons(h2, concat(t2))
+        case (Cons(h1, t1), Nil()) => Cons(h1, t1.concat(Nil()))
+        case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1, t1.concat(l2))
 
 
     def of[A](n: Int, a: A): Sequence[A] =
