@@ -3,6 +3,8 @@ package u03
 import u02.AnonymousFunctions.l
 import u03.Optionals.Optional
 
+import scala.annotation.tailrec
+
 object Sequences: // Essentially, generic linkedlists
   
   enum Sequence[E]:
@@ -55,8 +57,18 @@ object Sequences: // Essentially, generic linkedlists
       case Cons(h, t) => concat(mapper(h), flatMap(t)(mapper))
 
 
-    def min(l: Sequence[Int]): Optional[Int] = ???
-    
+    def min(l: Sequence[Int]): Optional[Int] = _minTail(l, Int.MaxValue, Optional.Empty())
+      @tailrec
+      private def _minTail(l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
+        case Nil() => result
+        case Cons(h, tail) => {
+          if (h < minVal) {
+            _minTail(tail, h, Optional.Just(h))
+          }else{
+            _minTail(tail, minVal, Optional.Just(minVal))
+          }
+        };
+
 @main def trySequences =
   import Sequences.* 
   val l = Sequence.Cons(10, Sequence.Cons(20, Sequence.Cons(30, Sequence.Nil())))

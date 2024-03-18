@@ -3,6 +3,8 @@ package u03
 import Optionals.Optional.*
 import org.junit.*
 import org.junit.Assert.*
+import u03.Optionals.Optional
+
 
 class SequenceTest:
   import u03.Sequences.*
@@ -47,3 +49,7 @@ class SequenceTest:
     assertEquals(Just(10), min(l))
     assertEquals(Just(1), min(Cons(1, Nil())))
     assertEquals(Empty(), min(Nil()))
+
+
+
+
