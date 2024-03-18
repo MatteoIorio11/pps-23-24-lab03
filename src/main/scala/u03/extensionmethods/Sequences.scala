@@ -41,6 +41,11 @@ object Sequences:
         case (Cons(h1, t1), Nil()) => Cons(h1, t1.concat(Nil()))
         case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1, t1.concat(l2))
 
+      def flatMap[B](mapper: A => Sequence[B]): Sequence[B] = l match
+        case Nil() => Nil()
+        case Cons(h, t) => mapper(h).concat(t.flatMap(mapper))
+
+
 
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
