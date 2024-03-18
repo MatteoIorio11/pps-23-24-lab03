@@ -50,6 +50,9 @@ class SequenceTest:
     val l1 = Cons(10, Cons(20, Nil()))
     assertEquals(Cons(11, Cons(21, Nil())), mapFlat(l1)(x => x + 1))
 
+  @Test def testFilterFlat() =
+    assertEquals(Cons(20, Cons(30, Nil())), filterFlat(l)(_ >= 20))
+
   @Test def testMin() =
     val l1: Sequence[Int] = Cons(20, Cons(10, Cons(30, Nil())))
     assertEquals(Just(10), min(l))
