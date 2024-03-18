@@ -49,6 +49,7 @@ object Sequences: // Essentially, generic linkedlists
         }
       };
 
+
     def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = (l1, l2) match
       case (Nil(), Nil()) => Nil()
       case (Nil(), Cons(h2, t2)) => Cons(h2, concat(Nil(), t2))
@@ -62,7 +63,14 @@ object Sequences: // Essentially, generic linkedlists
     def mapFlat[A, B](l: Sequence[A])(map: A => B): Sequence[B] =
       flatMap(l)(x => Cons(map(x), Nil()))
 
-    def filterFlat[A](l: Sequence[A])(pred: A => Boolean) = null
+    def filterFlat[A](l: Sequence[A])(pred: A => Boolean): Sequence[A] = l match
+        case Nil() => Nil()
+        case Cons(h, t) => {
+          import com.sun.org.apache.xpath.internal.operations.Bool.*
+          flatMap(l)(x => Cons(pred(x) ? x | Nil(), Nil()))
+        };
+
+
 
 
     def min(l: Sequence[Int]): Optional[Int] = _minTail(l, Int.MaxValue, Optional.Empty())
@@ -82,7 +90,8 @@ object Sequences: // Essentially, generic linkedlists
       map(teachers)(x => getCourse(x))
 
     def foldLeft(s: Sequence[Int])(defaultValue: Int)(accumulator: (Int, Int) => Int): Int = _calcValue(s, defaultValue)(accumulator)
-    def _calcValue(s: Sequence[Int], result: Int)(accumulator: (Int, Int) => Int): Int = s match
+    @tailrec
+    private def _calcValue(s: Sequence[Int], result: Int)(accumulator: (Int, Int) => Int): Int = s match
       case Nil() => result
       case Cons(h, t) => _calcValue(t, accumulator(result, h))(accumulator)
 
