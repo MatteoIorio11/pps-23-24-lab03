@@ -1,5 +1,7 @@
 package u03.extensionmethods
 
+import u03.Optionals.Optional
+
 object Sequences:
   
   enum Sequence[E]:
@@ -47,6 +49,18 @@ object Sequences:
 
       def mapFlat[B](map: A => B): Sequence[B] =
         l.flatMap(x => Cons(map(x), Nil()))
+
+
+    extension (s: Sequence[Int])
+      def min(): Optional[Int] = _minTail(s, Int.MaxValue, Optional.Empty())
+        def _minTail[A](l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
+          case Nil() => result
+          case Cons(h, tail) =>
+            if (h < minVal){
+              _minTail(tail, h, Optional.Just(h))
+            }else{
+              _minTail(tail, minVal, Optional.Just(minVal))
+            };
 
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
