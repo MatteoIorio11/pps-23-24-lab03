@@ -60,6 +60,11 @@ object Sequences: // Essentially, generic linkedlists
       case Nil() => Nil()
       case Cons(h, t) => concat(mapper(h), flatMap(t)(mapper))
 
+    def mapFlat[A, B](l: Sequence[A])(map: A => B): Sequence[B] =
+      flatMap(l)(x => Cons(map(x), Nil()))
+
+    def filterFlat[A](l: Sequence[A])(pred: A => Boolean) = null
+
 
     def min(l: Sequence[Int]): Optional[Int] = _minTail(l, Int.MaxValue, Optional.Empty())
       @tailrec
