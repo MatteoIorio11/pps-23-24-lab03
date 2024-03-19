@@ -32,3 +32,4 @@ class StreamTest:
 
   @Test def testFill(): Unit =
     assertEquals(Cons(0, Cons(0, Cons(0, Nil()))), Stream.fill(3)(0))
+    assertEquals(Cons("a", Cons("a", Nil())), Stream.fill(2)("a"))
