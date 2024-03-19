@@ -50,6 +50,11 @@ object Streams extends App :
       else
         Empty()
 
+    def pell(): Stream[Int] = cons(0, cons(1, _pellTail(1, 0)))
+      def _pellTail(pn1: Int, pn2: Int): Stream[Int] = 
+        lazy val h = (2*pn1 + pn2)
+        cons(h, _pellTail(h, pn1)) 
+
   
 
         
