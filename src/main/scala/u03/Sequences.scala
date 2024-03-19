@@ -41,13 +41,12 @@ object Sequences: // Essentially, generic linkedlists
 
     def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
       case Nil() => Nil()
-      case Cons(h, t) => {
+      case Cons(h, t) =>
         if (n > 0) {
           Cons(h, take(t)(n - 1))
         } else {
           Nil()
         }
-      };
 
 
     def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = (l1, l2) match
@@ -74,13 +73,11 @@ object Sequences: // Essentially, generic linkedlists
       @tailrec
       private def _minTail(l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
         case Nil() => result
-        case Cons(h, tail) => {
-          if (h < minVal) {
+        case Cons(h, tail) =>
+          if (h < minVal)
             _minTail(tail, h, Optional.Just(h))
-          }else{
+          else
             _minTail(tail, minVal, Optional.Just(minVal))
-          }
-        };
 
     def getCourses(s: Sequence[Person]): Sequence[String] =
       val teachers = filter(s)(x => !isStudent(x))
