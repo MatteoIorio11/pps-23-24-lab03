@@ -1,6 +1,7 @@
 package u03
 
 import Sequences.Sequence
+import u02.Values.s
 
 object Streams extends App :
 
@@ -50,10 +51,16 @@ object Streams extends App :
       else
         Empty()
 
-    def pell(): Stream[Int] = cons(0, cons(1, _pellTail(1, 0)))
-      def _pellTail(pn1: Int, pn2: Int): Stream[Int] = 
-        lazy val h = (2*pn1 + pn2)
-        cons(h, _pellTail(h, pn1)) 
+    def pell(): Stream[Int] = _pellTail(0, 1, 0)
+      def _pellTail(size: Int, pn1: Int, pn2: Int): Stream[Int] = 
+        if(size > 1)
+          lazy val h = (2*pn1 + pn2)
+          cons(h, _pellTail(size+1, h, pn1)) 
+        else if(size == 1)
+          cons(1, _pellTail(size+1,1, 0))
+        else
+          cons(0, _pellTail(size+1, 1, 0))
+          
 
   
 
