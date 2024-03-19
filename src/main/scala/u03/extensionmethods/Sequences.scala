@@ -59,11 +59,10 @@ object Sequences:
         private def _minTail[A](l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
           case Nil() => result
           case Cons(h, tail) =>
-            if (h < minVal){
+            if (h < minVal)
               _minTail(tail, h, Optional.Just(h))
-            }else{
+            else
               _minTail(tail, minVal, Optional.Just(minVal))
-            };
 
       def foldLeft(defaultVal: Int)(accumlator: (Int, Int) => Int): Int = s match
         case Nil() => defaultVal
