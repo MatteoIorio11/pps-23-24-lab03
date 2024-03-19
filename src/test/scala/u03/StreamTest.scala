@@ -35,4 +35,5 @@ class StreamTest:
     assertEquals(Cons("a", Cons("a", Nil())), toList(Stream.fill(2)("a")))
 
   @Test def testPellNumbers: Unit = 
-    assertEquals(Cons(0, Cons(1, Cons(2, Cons(5, Cons(12, Nil()))))), toList(Stream.pell()))
+    val pell: Stream[Int] = Stream.pell()
+    assertEquals(Cons(0, Cons(1, Cons(2, Cons(5, Cons(12, Nil()))))), toList(Stream.take(pell)(5)))
