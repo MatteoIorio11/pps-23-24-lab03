@@ -1,8 +1,9 @@
 package u03
 
+import Sequences.Sequence
+
 object Streams extends App :
 
-  import Sequences.*
 
   enum Stream[A]:
     private case Empty()
@@ -43,7 +44,15 @@ object Streams extends App :
       case Cons(head, tail) if pred(head()) => cons(head(), takeWhile(tail())(pred))
       case _ => Empty()
 
-    def fill[A](n: =>  Int)(k: => A): Stream[A] = ???
+    def fill[A](strSize: => Int)(k: => A): Stream[A] = 
+      if (strSize > 0)
+        cons(k, fill(strSize - 1)(k))
+      else
+        Empty()
+
+  
+
+        
 
   end Stream
 
