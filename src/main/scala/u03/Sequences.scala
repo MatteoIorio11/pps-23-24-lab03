@@ -42,11 +42,10 @@ object Sequences: // Essentially, generic linkedlists
     def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
       case Nil() => Nil()
       case Cons(h, t) =>
-        if (n > 0) {
+        if (n > 0) 
           Cons(h, take(t)(n - 1))
-        } else {
+          else
           Nil()
-        }
 
 
     def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = (l1, l2) match
