@@ -3,9 +3,8 @@ package u03
 import u03.Sequences.Sequence.Nil
 import u03.Sequences.Sequence.Cons
 import u03.Sequences.Sequence
-
-object Tasks:
-    
+import scala.annotation.tailrec
+import u03.Optionals.Optional    
     object Task1:
         
         def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
@@ -39,4 +38,19 @@ object Tasks:
             case Nil() => Nil()
             case Cons(h, t) => flatMap(l)(x => if (pred(x)) Cons(x, Nil()) else  Nil())
 
+    object Task2:
+        def min(l: Sequence[Int]): Optional[Int] = _minTail(l, Int.MaxValue, Optional.Empty())
+            @tailrec
+            private def _minTail(l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
+                case Nil() => result
+                case Cons(h, tail) =>
+                    if (h < minVal)
+                        _minTail(tail, h, Optional.Just(h))
+                    else
+                        _minTail(tail, minVal, Optional.Just(minVal))
+    
+    object Task3:
+
+        
+        
 
