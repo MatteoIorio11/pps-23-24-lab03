@@ -63,7 +63,7 @@ object Sequences: // Essentially, generic linkedlists
 
     def filterFlat[A](l: Sequence[A])(pred: A => Boolean): Sequence[A] = l match
         case Nil() => Nil()
-        case Cons(h, t) => flatMap(l)(x => if (pred(x)) Cons(x, Nil()) else  Nil())
+        case Cons(h, t) => flatMap(t)(x => if (pred(x)) Cons(x, Nil()) else  Nil())
 
 
 
