@@ -5,11 +5,11 @@ import u03.Sequences.Sequence.Cons
 import u03.Sequences.Sequence
 import scala.annotation.tailrec
 import u03.Optionals.Optional    
-    import u02.Modules.Person
-    import u03.Sequences.Sequence.filter
-    import u02.Modules.isStudent
-    import u03.Sequences.Sequence.map
-    import u02.Modules.Person.getCourse
+import u02.Modules.Person
+import u03.Sequences.Sequence.filter
+import u02.Modules.isStudent
+import u03.Sequences.Sequence.map
+import u02.Modules.Person.getCourse
     object Task1:
         
         def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
@@ -68,6 +68,10 @@ import u03.Optionals.Optional
     
     object Task5:
         extension [A](l: Sequence[A])
+            def map[B](mapper: A => B): Sequence[B] = l match
+                case Cons(h, t) => Cons(mapper(h), t.map(mapper))
+                case Nil()      => Nil()
+
             def zip[B](second:  Sequence[B]): Sequence[(A, B)] = (l, second) match
                 case (Nil(), Nil()) => Nil()
                 case (Cons(h1, t1), Cons(h2, t2)) => Cons((h1, h2), t1.zip(t2))
@@ -109,6 +113,11 @@ import u03.Optionals.Optional
             def foldLeft(defaultVal: Int)(accumlator: (Int, Int) => Int): Int = s match
                 case Nil() => defaultVal
                 case Cons(h, t) => t.foldLeft(h + defaultVal)(accumlator)
+            
+        extension (s: Sequence[Person])
+            def getCourses(): Sequence[String] =
+                val teachers = filter(s)(x => !isStudent(x))
+                s.map(x => getCourse(x))
 
 
 
