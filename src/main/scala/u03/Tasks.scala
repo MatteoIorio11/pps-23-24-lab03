@@ -10,6 +10,9 @@ import u03.Sequences.Sequence.filter
 import u02.Modules.isStudent
 import u03.Sequences.Sequence.map
 import u02.Modules.Person.getCourse
+import u03.Streams.Stream.cons
+import u03.Streams.Stream.*
+
     object Task1:
         
         def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
@@ -118,6 +121,18 @@ import u02.Modules.Person.getCourse
             def getCourses(): Sequence[String] =
                 val teachers = filter(s)(x => !isStudent(x))
                 s.map(x => getCourse(x))
+    
+    
+    object Task6:
+        def takeWhile[A](stream: Stream[A])(pred: A => Boolean): Stream[A] = stream match
+            case Cons(head, tail) if pred(head()) => cons(head(), takeWhile(tail())(pred))
+            case _ => Empty()        
+    object Task7:
+        def fill[A](strSize: => Int)(k: => A): Stream[A] = 
+            if (strSize > 0)
+                cons(k, fill(strSize - 1)(k))
+            else
+                Empty()
 
 
 
