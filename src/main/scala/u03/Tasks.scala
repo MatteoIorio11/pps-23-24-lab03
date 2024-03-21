@@ -65,6 +65,54 @@ import u03.Optionals.Optional
             private def _calcValue(s: Sequence[Int], result: Int)(accumulator: (Int, Int) => Int): Int = s match
             case Nil() => result
             case Cons(h, t) => _calcValue(t, accumulator(result, h))(accumulator)
+    
+    object Task5:
+        extension [A](l: Sequence[A])
+            def zip[B](second:  Sequence[B]): Sequence[(A, B)] = (l, second) match
+                case (Nil(), Nil()) => Nil()
+                case (Cons(h1, t1), Cons(h2, t2)) => Cons((h1, h2), t1.zip(t2))
+                case (Cons(h1, t1), Nil()) => Nil()
+                case (Nil(), Cons(h2, t2)) => Nil()
+            
+            def take(n: Int): Sequence[A] = l match
+                case Nil() => Nil()
+                case Cons(h, t) if (n > 0) => Cons(h, t.take(n-1))
+                case Cons(h, t) => Nil() 
+            
+            def concat(l2: Sequence[A]): Sequence[A] = (l, l2) match
+                case (Nil(), Nil()) => Nil()
+                case (Nil(), Cons(h2, t2)) => Cons(h2, concat(t2))
+                case (Cons(h1, t1), Nil()) => Cons(h1, t1.concat(Nil()))
+                case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1, t1.concat(l2))
+            
+            def flatMap[B](mapper: A => Sequence[B]): Sequence[B] = l match
+                case Nil() => Nil()
+                case Cons(h, t) => mapper(h).concat(t.flatMap(mapper))
+            
+            def mapFlat[B](map: A => B): Sequence[B] =
+                l.flatMap(x => Cons(map(x), Nil()))
+            
+            def filterFlat(pred: A => Boolean): Sequence[A] = l match            
+                case Nil() => Nil()
+                case Cons(h, t) => t.flatMap(x => if (pred(x)) Cons(x, Nil()) else  Nil())
+        
+        extension (s: Sequence[Int])
+            def min(): Optional[Int] = _minTail(s, Int.MaxValue, Optional.Empty())
+                @tailrec
+                private def _minTail[A](l: Sequence[Int], minVal: Int, result: Optional[Int]): Optional[Int] = l match
+                    case Nil() => result
+                    case Cons(h, tail) =>
+                        if (h < minVal)
+                            _minTail(tail, h, Optional.Just(h))
+                        else
+                            _minTail(tail, minVal, Optional.Just(minVal))
+            def foldLeft(defaultVal: Int)(accumlator: (Int, Int) => Int): Int = s match
+                case Nil() => defaultVal
+                case Cons(h, t) => t.foldLeft(h + defaultVal)(accumlator)
+
+
+
+
 
         
         
