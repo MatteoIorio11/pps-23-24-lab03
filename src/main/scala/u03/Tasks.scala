@@ -5,6 +5,11 @@ import u03.Sequences.Sequence.Cons
 import u03.Sequences.Sequence
 import scala.annotation.tailrec
 import u03.Optionals.Optional    
+    import u02.Modules.Person
+    import u03.Sequences.Sequence.filter
+    import u02.Modules.isStudent
+    import u03.Sequences.Sequence.map
+    import u02.Modules.Person.getCourse
     object Task1:
         
         def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
@@ -50,6 +55,10 @@ import u03.Optionals.Optional
                         _minTail(tail, minVal, Optional.Just(minVal))
     
     object Task3:
+        def getCourses(s: Sequence[Person]): Sequence[String] =
+            val teachers = filter(s)(x => !isStudent(x))
+            map(teachers)(x => getCourse(x))
+
 
         
         
