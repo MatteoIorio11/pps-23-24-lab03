@@ -59,6 +59,12 @@ import u03.Optionals.Optional
             val teachers = filter(s)(x => !isStudent(x))
             map(teachers)(x => getCourse(x))
 
+    object Task4:
+        def foldLeft(s: Sequence[Int])(defaultValue: Int)(accumulator: (Int, Int) => Int): Int = _calcValue(s, defaultValue)(accumulator)
+            @tailrec
+            private def _calcValue(s: Sequence[Int], result: Int)(accumulator: (Int, Int) => Int): Int = s match
+            case Nil() => result
+            case Cons(h, t) => _calcValue(t, accumulator(result, h))(accumulator)
 
         
         
